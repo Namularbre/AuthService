@@ -1,0 +1,7 @@
+# Jetbrains IDE
+.idea/
+authService.iml
+
+# Project
+.env
+node_modules/
