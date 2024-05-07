@@ -67,6 +67,6 @@ app.get("/", (req, res) => {
     res.json({message: 'Auth service online'});
 });
 
-app.listen(3000, () => {
+app.listen(port, host,() => {
     console.log(`Server started on port 3000. Go to ${serverAddr}/api-docs/ to get documentation (only in development environment)`);
 });
