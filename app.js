@@ -1,11 +1,13 @@
-const express = require('express');
 const bodyParser = require('body-parser');
-const userRouter = require("./routers/userRouter");
+const cors = require('cors');
 const dotenv = require("dotenv");
+const express = require('express');
+const helmet = require('helmet');
+const log = require("./middlewares/log");
 const sessionRouter = require("./routers/sessionRouter");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const log = require("./middlewares/log");
+const userRouter = require("./routers/userRouter");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -56,9 +58,11 @@ if (env === 'development') {
     );
 }
 
-dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+dotenv.config();
+app.use(helmet());
 
 app.use(userRouter);
 app.use(sessionRouter);
