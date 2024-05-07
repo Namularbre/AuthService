@@ -1,5 +1,7 @@
 CREATE DATABASE `auth` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
+USE `auth`;
+
 -- auth.users definition
 
 CREATE TABLE `users` (
