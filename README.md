@@ -54,6 +54,22 @@ npm start
 
 6. Connect to http://yourhost:port/api-docs/ to get the swagger UI
 
+## Docker
+
+With Docker installed, you can run the command bellow to build a image from the DockerFile in the project
+
+````
+sudo docker build . -t auth_service
+````
+
+The run this command to launch the app, by changing the port and container name by what you want
+
+````
+sudo docker run -d -p 3000:8080 --name auth_service_container auth_service
+````
+
+*Note: remember: localhost is the localhost of the container, set the host to 0.0.0.0*
+
 ## Author
 
 [@Namularbre](https://github.com/namularbre)
