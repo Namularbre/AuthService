@@ -72,5 +72,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, host,() => {
-    console.log(`Server started on port 3000. Go to ${serverAddr}/api-docs/ to get documentation (only in development environment)`);
+    console.log(`Server started on port ${port}. Go to ${serverAddr}/api-docs/ to get documentation (only in development environment)`);
 });
