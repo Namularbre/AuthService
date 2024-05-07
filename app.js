@@ -19,6 +19,7 @@ const serverAddr = `http://${host}:${port}`;
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {
+    console.log("Development mode is set");
     app.use(log);
     const options = {
         definition: {
