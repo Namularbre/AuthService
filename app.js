@@ -9,6 +9,8 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const userRouter = require("./routers/userRouter");
 
+dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || '127.0.0.1';
@@ -61,7 +63,6 @@ if (env === 'development') {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-dotenv.config();
 app.use(helmet());
 
 app.use(userRouter);
