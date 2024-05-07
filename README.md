@@ -62,7 +62,7 @@ With Docker installed, you can run the command bellow to build a image from the 
 sudo docker build . -t auth_service
 ````
 
-The run this command to launch the app, by changing the port and container name by what you want
+Then run this command to launch the app, by changing the port and container name by what you want
 
 ````
 sudo docker run -d -p 3000:8080 --name auth_service_container auth_service
