@@ -111,25 +111,46 @@ class SessionController {
      */
     static async verify(req, res) {
         const authHeader = req.headers.authorization;
+        const {username} = req.body;
 
-        if (authHeader) {
+        if (authHeader && username) {
             const token = authHeader.split(' ')[1];
 
             try {
-                const logged = await verifyToken(token);
+                const userInformation = await verifyToken(token);
 
-                res.json({
-                    logged: logged,
-                });
+                if (userInformation.username === username) {
+                    const sessionInformation = await SessionModel.sessionExists(userInformation.idUser);
+
+                    if (sessionInformation) {
+                        if (sessionInformation.userLoggedOut === false && await isNotExpired(sessionInformation.expirationDate)) {
+                            res.json({
+                                logged: true,
+                            });
+                        } else {
+                            res.json({
+                                logged: false,
+                            });
+                        }
+                    } else {
+                        res.json({
+                            logged: false,
+                        });
+                    }
+                } else {
+                    res.status(401).json({
+                        message: 'Wrong user',
+                    });
+                }
             } catch (error) {
                 console.error(error.message);
                 res.status(500).json({
-                    message: 'Internal server error'
+                    message: 'Internal server error',
                 });
             }
         } else {
             res.status(400).json({
-                message: "Missing token in request payload"
+                message: "Missing username in request payload or not logged",
             });
         }
     }
