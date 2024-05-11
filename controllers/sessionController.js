@@ -61,7 +61,6 @@ class SessionController {
     /**
      *
      * @param user {Object}
-     * @param token {string}
      * @returns {Promise<{sessionId: number|null, token: string}>}
      * @private
      */
