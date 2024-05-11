@@ -21,11 +21,15 @@
  *         expirationDate:
  *           type: Date
  *           description: Expiration date of the session
+ *         userLoggedOut:
+ *           type: boolean
+ *           description: Indicate if user is logged out
  *       example:
  *         idSession: 1
  *         token: 654156156156156135
  *         idUser: 1
  *         expirationDate: 2024-05-05T17:04:00.912Z
+ *         userLoggedOut: false
  */
 
 /**
@@ -63,14 +67,14 @@
  *                   type: number
  *                 token:
  *                   type: string
- *       500:
- *          description: Some server error occurred
- *       402:
+ *                 message:
+ *                   type: string|undefined
+ *       400:
  *          description: Missing username or password
- *       404:
- *          description: Username not found
  *       401:
  *          description: Wrong username or password
+ *       500:
+ *          description: Some server error occurred
  */
 
 /**
@@ -84,9 +88,20 @@
  *     tags: [AuthService]
  *     security:
  *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *             properties:
+ *               username:
+ *                 type: string
  *     responses:
  *       200:
- *         description: Token verification successful
+ *         description: Token and session verification successful
  *         content:
  *           application/json:
  *             schema:
@@ -94,9 +109,52 @@
  *               properties:
  *                 logged:
  *                   type: boolean
- *                   description: Indicates whether the token is valid
+ *                   description: true if user is logged, false if not
  *       400:
- *         description: Missing token in request payload
+ *         description: Missing token or username in request payload
+ *       401:
+ *         description: Not logged or trying to verify another user
+ *       500:
+ *         description: Some server error occurred
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: AuthService
+ *   description: The auth service API
+ * /logout:
+ *   put:
+ *     summary: Log out the user
+ *     tags: [AuthService]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *             properties:
+ *               username:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User logged out
+ *         content:
+ *           application/json
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A message saying user is logged out
+ *       400:
+ *         description: Missing username in request payload
+ *       401:
+ *         description: User not logged or trying to log out another user
  *       500:
  *         description: Some server error occurred
  */
