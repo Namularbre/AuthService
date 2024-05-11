@@ -154,6 +154,49 @@ class SessionController {
             });
         }
     }
+
+    /**
+     *
+     * @param req {Request}
+     * @param res {Response}
+     * @returns {Promise<void>}
+     */
+    static async logout(req, res) {
+        const { username } = req.body;
+
+        if (username) {
+            if (req.user.username === username) {
+                const idUser = req.user.idUser;
+
+                try {
+                    const affectedRows = await SessionModel.logOutUser(idUser);
+
+                    if (affectedRows) {
+                        res.json({
+                           message: 'User logged out',
+                        });
+                    } else {
+                        res.status(500).json({
+                            message: 'Internal server error',
+                        });
+                    }
+                } catch (error) {
+                    console.error(error.message);
+                    res.status(500).json({
+                        message: 'Internal server error',
+                    });
+                }
+            } else {
+                res.status(401).json({
+                   message: 'Wrong user',
+                });
+            }
+        } else {
+            res.status(400).json({
+                message: 'Missing username in request payload',
+            })
+        }
+    }
 }
 
 module.exports = SessionController;
