@@ -11,7 +11,7 @@ class SessionController {
      * @param res {Response}
      * @returns {Promise<void>}
      */
-    static async create(req, res) {
+    static async login(req, res) {
         const { username, password } = req.body;
 
         if (username && password) {
@@ -38,7 +38,7 @@ class SessionController {
                         } else {
                             console.error("Error recovering a session");
                             res.status(500).json({
-                                message: 'Internal server error'
+                                message: 'Internal server error',
                             });
                         }
                     }
@@ -50,7 +50,7 @@ class SessionController {
             } catch (error) {
                 console.error(error.message);
                 res.status(500).json({
-                    message: 'Internal server error'
+                    message: 'Internal server error',
                 });
             }
         } else {
