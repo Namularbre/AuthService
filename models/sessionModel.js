@@ -40,7 +40,7 @@ class SessionModel {
 
         try {
             conn = await db.getConnection();
-            result = await conn.query(`SELECT idSession, idUser, token, expirationDate FROM sessions WHERE idUser = ?;`,
+            result = await conn.query(`SELECT idSession, idUser, token, expirationDate, userLoggedOut FROM sessions WHERE idUser = ? AND userLoggedOut = 0;`,
                 [idUser]);
         } catch (error) {
             console.error(error.message);
@@ -51,6 +51,34 @@ class SessionModel {
 
         if (result)
             return result[0];
+        return null;
+    }
+
+    /**
+     *
+     * @param idUser {number}
+     * @returns {Promise<number|null>}
+     */
+    static async logOutUser(idUser) {
+        let conn;
+        let rows;
+
+        try {
+            conn = await db.getConnection();
+
+            rows = await conn.query(`UPDATE sessions SET userLoggedOut = 1 WHERE idUser = ? ORDER BY expirationDate DESC LIMIT 1;`,
+                [idUser]);
+        } catch (error) {
+            console.error(error.message);
+            throw new Error("DB_ERROR");
+        } finally {
+            if (conn) await conn.release();
+        }
+
+        console.log(rows);
+
+        if (rows)
+            return parseInt(rows.affectedRows);
         return null;
     }
 }

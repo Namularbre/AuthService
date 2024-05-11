@@ -1,4 +1,6 @@
 const {verifyToken} = require("../utils/jwt");
+const SessionModel = require("../models/sessionModel");
+const {isNotExpired} = require("../utils/dateTools");
 
 /**
  *
@@ -17,9 +19,24 @@ async function login(req, res, next) {
             const userInfo = await verifyToken(token);
 
             if (userInfo) {
-                req.user = userInfo;
+                if (userInfo.idUser) {
+                    const sessionInformation = await SessionModel.sessionExists(userInfo.idUser);
 
-                next();
+                    if (sessionInformation) {
+                        if (await isNotExpired(sessionInformation.expirationDate)) {
+                            req.user = userInfo;
+                            next();
+                        } else {
+                            res.status(401).json({
+                                message: 'Unauthorized',
+                            });
+                        }
+                    } else {
+                        res.status(401).json({
+                            message: 'Unauthorized',
+                        });
+                    }
+                }
             } else {
                 res.status(401).json({
                     message: 'Unauthorized',
