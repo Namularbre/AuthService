@@ -63,3 +63,45 @@
  *       400:
  *          description: User already exists
  */
+
+/**
+ * @swagger
+ * tags:
+ *   name: AuthService
+ *   description: The auth service API
+ * /delete:
+ *   delete:
+ *     summary: Delete a user
+ *     tags: [AuthService]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *             properties:
+ *               username:
+ *                 type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Message indicating that user is deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 idUser:
+ *                   type: number
+ *       500:
+ *         description: Some server error occurred
+ *       402:
+ *          description: Missing username
+ *       404:
+ *          description: User doesn't exist
+ *       401:
+ *          description: You are not logged
+ */

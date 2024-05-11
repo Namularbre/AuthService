@@ -85,6 +85,40 @@ class UserModel {
             return result[0];
         return null;
     }
+
+    /**
+     *
+     * @param idUser {number}
+     * @returns {Promise<number|null>}
+     */
+    static async deleteUser(idUser) {
+        let conn;
+        let rows;
+
+        try {
+            conn = await db.getConnection();
+
+            await conn.beginTransaction();
+
+            rows = await conn.query(`DELETE FROM sessions WHERE idUser = ?;`,
+                [idUser]);
+
+            rows = await conn.query(`DELETE FROM users WHERE idUser = ?;`,
+                [idUser]);
+
+            await conn.commit();
+        } catch (error) {
+            console.error(error.message);
+            throw new Error("DB_ERROR");
+        } finally {
+            if (conn) await conn.release();
+        }
+
+        if (rows) {
+            return parseInt(rows.affectedRows);
+        }
+        return null;
+    }
 }
 
 module.exports = UserModel;
