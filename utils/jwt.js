@@ -19,7 +19,7 @@ async function generateToken(username, idUser) {
 /**
  * Check if the token is valid, and return the user information linked to the token (username + id)
  * @param token {string}
- * @returns {Promise<{idUser: number, username: string}>}
+ * @returns {Promise<{idUser: number, username: string, iat: number, exp: number}>}
  */
 async function verifyToken(token) {
     return jwt.verify(token, process.env.TOKEN_SECRET, { expiresIn: expirationTime });
