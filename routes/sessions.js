@@ -144,7 +144,7 @@
  *       200:
  *         description: User logged out
  *         content:
- *           application/json
+ *           application/json:
  *             schema:
  *               type: object
  *               properties:
