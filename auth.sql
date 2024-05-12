@@ -14,12 +14,13 @@ CREATE TABLE `users` (
 
 -- auth.sessions definition
 
-CREATE TABLE `sessions` (
-    `idSession` int(11) NOT NULL AUTO_INCREMENT,
-    `idUser` int(11) DEFAULT NULL,
-    `token` varchar(255) NOT NULL,
-    `expirationDate` datetime NOT NULL,
-    PRIMARY KEY (`idSession`),
-    KEY `sessions_users_FK` (`idUser`),
-    CONSTRAINT `sessions_users_FK` FOREIGN KEY (`idUser`) REFERENCES `users` (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+create table sessions
+(
+    idSession      int              auto_increment primary key,
+    idUser         int              null,
+    token          varchar(255)     not null,
+    expirationDate datetime         not null,
+    userLoggedOut  bit default b'0' not null,
+    constraint sessions_users_FK
+        foreign key (idUser) references users (idUser)
+);
