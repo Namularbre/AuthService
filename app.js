@@ -8,6 +8,7 @@ const sessionRouter = require("./routers/sessionRouter");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const userRouter = require("./routers/userRouter");
+const groupRouter = require("./routers/groupRouter");
 
 dotenv.config();
 
@@ -68,10 +69,7 @@ app.use(helmet());
 
 app.use(userRouter);
 app.use(sessionRouter);
-
-app.get("/", (req, res) => {
-    res.json({message: 'Auth service online'});
-});
+app.use(groupRouter);
 
 app.listen(port, host,() => {
     console.log(`Server started on port ${port}. Go to ${serverAddr}/api-docs/ to get documentation (only in development environment)`);
