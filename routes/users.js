@@ -106,3 +106,34 @@
  *       401:
  *          description: You are not logged
  */
+
+/**
+ * @swagger
+ * tags:
+ *   name: AuthService
+ *   description: The auth service API
+ * /groups:
+ *   get:
+ *     summary: Get all the groups of the user
+ *     tags: [User]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: The list of groups of the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 groups:
+ *                   type: array
+ *       400:
+ *          description: Missing username
+ *       401:
+ *          description: You are not logged or trying to see group of another user
+ *       404:
+ *          description: User doesn't exist
+ *       500:
+ *         description: Some server error occurred
+ */

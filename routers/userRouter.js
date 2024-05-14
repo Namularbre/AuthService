@@ -12,4 +12,8 @@ userRouter
     .route('/delete')
     .delete(login, UserController.delete);
 
+userRouter
+    .route('/groups')
+    .get(login, UserController.getGroups);
+
 module.exports = userRouter;
