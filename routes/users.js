@@ -21,6 +21,7 @@
  *         idUser: 1
  *         username: bob
  *         password: 1234
+ *       description: The users of all other APIs
  */
 
 /**
@@ -31,7 +32,7 @@
  * /register:
  *   post:
  *     summary: Create a new user
- *     tags: [AuthService]
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -72,7 +73,7 @@
  * /delete:
  *   delete:
  *     summary: Delete a user
- *     tags: [AuthService]
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
