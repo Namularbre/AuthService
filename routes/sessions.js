@@ -30,6 +30,7 @@
  *         idUser: 1
  *         expirationDate: 2024-05-05T17:04:00.912Z
  *         userLoggedOut: false
+ *       description: Represent a session of a user, so other apps don't have to send login & password everytime.
  */
 
 /**
@@ -40,7 +41,7 @@
  * /login:
  *   post:
  *     summary: Create a new session if a valid one does not exist, and return the session user's id with a token
- *     tags: [AuthService]
+ *     tags: [Session]
  *     requestBody:
  *       required: true
  *       content:
@@ -85,7 +86,7 @@
  * /verify:
  *   post:
  *     summary: Verify the token in authorization request header
- *     tags: [AuthService]
+ *     tags: [Session]
  *     security:
  *       - BearerAuth: []
  *     requestBody:
@@ -126,7 +127,7 @@
  * /logout:
  *   put:
  *     summary: Log out the user
- *     tags: [AuthService]
+ *     tags: [Session]
  *     security:
  *       - BearerAuth: []
  *     requestBody:
