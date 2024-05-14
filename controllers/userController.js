@@ -93,6 +93,48 @@ class UserController {
             });
         }
     }
+
+    /**
+     *
+     * @param req {Request}
+     * @param res {Response}
+     * @returns {Promise<void>}
+     */
+    static async getGroups(req, res) {
+        const username = req.user.username;
+
+        if (username) {
+            if (req.user.username === username) {
+                try {
+                    const idUser = await UserModel.usernameExists(username);
+
+                    if (idUser) {
+                        const groups = await UserModel.getGroups(idUser);
+                        res.json({
+                            groups,
+                        });
+                    } else {
+                        res.status(404).json({
+                            message: 'User not found',
+                        });
+                    }
+                } catch (error) {
+                    console.error(error.message);
+                    res.status(500).json({
+                        message: 'Internal server error',
+                    });
+                }
+            } else {
+                res.status(401).json({
+                    message: 'Wrong user',
+                });
+            }
+        } else {
+            res.status(400).json({
+                message: 'Missing username in request payload',
+            });
+        }
+    }
 }
 
 module.exports = UserController;
