@@ -40,7 +40,7 @@ class SessionModel {
 
         try {
             conn = await db.getConnection();
-            result = await conn.query(`SELECT idSession, idUser, token, expirationDate, userLoggedOut FROM sessions WHERE idUser = ? AND userLoggedOut = 0;`,
+            result = await conn.query(`SELECT idSession, idUser, token, expirationDate, userLoggedOut FROM sessions WHERE idUser = ? AND userLoggedOut = 0 ORDER BY expirationDate DESC LIMIT 1;`,
                 [idUser]);
         } catch (error) {
             console.error(error.message);
