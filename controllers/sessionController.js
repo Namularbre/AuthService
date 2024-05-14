@@ -122,7 +122,7 @@ class SessionController {
                     const sessionInformation = await SessionModel.sessionExists(userInformation.idUser);
 
                     if (sessionInformation) {
-                        if (sessionInformation.userLoggedOut === false && await isNotExpired(sessionInformation.expirationDate)) {
+                        if (!sessionInformation.userLoggedOut && await isNotExpired(sessionInformation.expirationDate)) {
                             res.json({
                                 logged: true,
                             });
