@@ -37,7 +37,7 @@ class GroupModel {
         try {
             conn = await db.getConnection();
 
-            result = await conn.query(`SELECT idGroup, name FROM groups WHERE name = ?;`,
+            result = await conn.query(`SELECT idGroup, name FROM \`groups\` WHERE name = ?;`,
                 [groupName]);
         } catch (err) {
             console.error(err.message);
