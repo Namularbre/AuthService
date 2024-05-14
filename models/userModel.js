@@ -119,6 +119,30 @@ class UserModel {
         }
         return null;
     }
+
+    /**
+     *
+     * @param idUser {number}
+     * @returns {Promise<Object[]>}
+     */
+    static async getGroups(idUser) {
+        let conn;
+        let result = [];
+
+        try {
+            conn = await db.getConnection();
+
+            result = await conn.query(`SELECT name FROM groups g INNER JOIN groups_users gu ON (g.idGroup=gu.idGroup) WHERE idUser = ?;`,
+                [idUser]);
+        } catch (error) {
+            console.error(error.message);
+            throw new Error("DB_ERROR");
+        } finally {
+            if (conn) await conn.release();
+        }
+
+        return result;
+    }
 }
 
 module.exports = UserModel;
