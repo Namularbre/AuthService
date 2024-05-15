@@ -1,12 +1,13 @@
 const express = require('express');
 const UserController = require('../controllers/userController');
 const login = require("../middlewares/login");
+const blockLoggedUsers = require("../middlewares/blockLoggedUsers");
 
 const userRouter = express.Router();
 
 userRouter
     .route('/register')
-    .post(UserController.register);
+    .post(blockLoggedUsers, UserController.register);
 
 userRouter
     .route('/delete')
