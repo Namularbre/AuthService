@@ -23,7 +23,6 @@ class SessionController {
 
                     if (session) {
                         res.json({
-                            message: 'Already logged',
                             sessionId: session.idSession,
                             token: session.token,
                         });
