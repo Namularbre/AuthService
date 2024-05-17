@@ -5,5 +5,5 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm i
 COPY --chown=node:node . .
-EXPOSE 8001
+EXPOSE 8080
 CMD ["node", "app.js"]
