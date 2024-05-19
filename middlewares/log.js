@@ -8,6 +8,7 @@
 async function log(req, res, next) {
     let requestInfo = {};
 
+    requestInfo.date = new Date().toISOString();
     requestInfo.method = req.method;
     requestInfo.url = req.url;
     requestInfo.params = req.params;
